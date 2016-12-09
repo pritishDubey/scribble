@@ -1,0 +1,18 @@
+div
+  .row.searchBox
+    .col.s8
+      input(type = 'text' placeholder = 'Search')
+    .col.s4
+      .row
+        .col.s6
+          i.fa.fa-floppy-o.fa-2x(ng-click = 'save()')
+        .col.s6
+          i.fa.fa-trash-o.fa-2x(ng-click = 'delete()')
+  .row.listBoxWrapper
+    .listBox
+      .collection
+        a.collection-item(href='',ng-repeat = "document in documents | orderBy:'-'" )
+          span
+            b {{document.subject}}
+          br
+          span {{document.date}}

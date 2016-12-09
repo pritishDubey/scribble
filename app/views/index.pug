@@ -1,0 +1,23 @@
+html
+  head
+    script.
+      if (typeof module === 'object') {window.module = module; module = undefined;}
+    //-link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    link(type='text/css', rel='stylesheet', href='../css/materialize.min.css')
+    link(type='text/css', rel='stylesheet', href='../css/font-awesome.min.css')
+    link(type='text/css', rel='stylesheet', href='../css/list.css')
+    link(rel="stylesheet" type="text/css" href="../css/trix.css")
+    script(src='https://code.jquery.com/jquery-2.1.1.min.js')
+    script(src='../libs/materialize.min.js')
+    script(src="../../node_modules/angular/angular.js")
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/trix/0.9.2/trix.js")
+    script(src="../../node_modules/angular-trix/dist/angular-trix.min.js")
+    script(src="../js/appCtrl.js")
+    script.
+      if (window.module) module = window.module;
+  body(ng-app = 'notes', ng-controller = 'appCtrl')
+    .row
+      .col.s3
+        include list.pug
+      .col.s9
+        include editor.pug
