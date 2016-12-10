@@ -1,13 +1,16 @@
 div
   .row.searchBox
     .col.s8
-      input(type = 'text' placeholder = 'Search')
+      .searchWrapper
+        input(type = 'text' placeholder = 'Search')
     .col.s4
       .row
-        .col.s6
-          i.fa.fa-floppy-o.fa-2x(ng-click = 'save()')
-        .col.s6
-          i.fa.fa-trash-o.fa-2x(ng-click = 'delete()')
+        .col.s6.iconContainer
+          center
+            i.fa.fa-floppy-o.fa-lg.iconBox(ng-click = 'save()')
+        .col.s6.iconContainer
+          center
+            i.fa.fa-trash-o.fa-lg.iconBox(ng-click = 'delete()')
   .row.listBoxWrapper
     .listBox
       .collection

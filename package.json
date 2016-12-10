@@ -4,7 +4,8 @@
   "description": "A  Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "build"
   },
   "repository": "https://github.com/pritishDubey/scribble",
   "keywords": [
@@ -12,12 +13,16 @@
   ],
   "author": "pritishDubey",
   "license": "CC0-1.0",
+  "build": {
+    "appId": "1"
+  },
   "devDependencies": {
     "electron": "^1.4.1"
   },
   "dependencies": {
     "angular": "^1.5.9",
     "angular-trix": "^1.0.2",
+    "electron-builder": "^10.6.1",
     "moment": "^2.17.1",
     "nedb": "^1.8.0",
     "uuid": "^3.0.1"

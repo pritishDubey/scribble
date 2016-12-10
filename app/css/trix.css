@@ -15,15 +15,16 @@ trix-editor {
   overflow-y: auto;
   outline: none; }
 trix-toolbar * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  border-bottom: 1px solid green;}
 trix-toolbar .button_group {
   display: inline-block;
   font-size: 0;
-  margin: 0 8px 4px 0;
+  margin: 0 0px 0px 0;
   border: 1px solid #bbb;
   border-top-color: #ccc;
   border-bottom-color: #888;
-  border-radius: 5px;
+  border-radius: 0px;
   overflow: hidden; }
   trix-toolbar .button_group:last-of-type {
     margin-right: 0; }
@@ -31,7 +32,7 @@ trix-toolbar .button_group {
     position: relative;
     font-size: 0;
     margin: 0;
-    height: 28px;
+    height: 25px;
     width: 40px;
     background: #fff;
     border: none;
