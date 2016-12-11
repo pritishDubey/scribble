@@ -1,4 +1,4 @@
 div
   .row
     .col.s12
-      trix-editor(angular-trix ng-model="text" id = 'editorField')
+      trix-editor(angular-trix ng-model="text" id = 'editorField' trix-initialize="trixInitialize(e, editor)")

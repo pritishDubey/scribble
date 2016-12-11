@@ -1,69 +1,31 @@
 var mainApp   = angular.module("notes", ['angularTrix']);
-var moment    = require('moment')
-var nedb      = require('nedb')
 const uuidV4  = require('uuid/v4');
-var Datastore = require('nedb')
-var db        = new Datastore({ filename: __dirname + '/datafile', autoload: true });
+var moment    = require('moment')
 
-mainApp.controller('appCtrl', function($scope,$timeout) {
-
-    $scope.text = '';
-    $scope.documents = [];
-
+mainApp.controller('appCtrl', function($scope,$timeout,documentBucket) {
 
     function init() {
-      db.find({}, function (err, docs) {
-          console.log(err);
-          console.log(docs);
-          $timeout(function () {
-              if(docs.length > 0){
-                $scope.documents = docs
-                $scope.text = $scope.documents[$scope.documents.length -1].text
-              }
-              else{
-                  _addEmptyRecord();
-              }
-          })
-      });
+        documentBucket.connectToDb();
+        // init lists
+        initList();
+        //
+        $scope.text = '';
+        $scope.activeNoteIndex = 0;
     }
-
-
-
-    function _addEmptyRecord() {
-        let document      = {};
-        document.text     = ''
-        document._id      = uuidV4();
-        document.date     = moment().format('ll');
-        document.subject  = 'New Note'
-
-        $scope.documents.push(document)
-    }
-
 
     $scope.save = function () {
 
         // get last obj of documents
-        let savedCurrentDoc = {};
-        savedCurrentDoc._id = $scope.documents[$scope.documents.length -1]._id;
-        savedCurrentDoc.date = $scope.documents[$scope.documents.length -1].date;
-        savedCurrentDoc.text= $scope.text;
-        $scope.documents[$scope.documents.length -1].text =  $scope.text;
+        let currentDoc = {};
+        currentDoc._id = $scope.notesBucket[$scope.activeNoteIndex]._id;
+        currentDoc.date = $scope.notesBucket[$scope.activeNoteIndex].date;
+        var docText = $scope.editor.getDocument().toString();
+        docText = docText.split('\n')[0]
+        currentDoc.subject = docText
+        currentDoc.text = $scope.text;
         $scope.text = '';
-        var text  = $('#editorField').text();
-        savedCurrentDoc.subject = text.substr(0, 20);
-        $scope.documents[$scope.documents.length -1].subject = savedCurrentDoc.subject
-        // check if current doc
-        db.update({_id : savedCurrentDoc._id}, savedCurrentDoc, {upsert : true }, function(err,newDoc) {
-            if(err){
-                console.log(err);
-            }
-            console.log('updated',newDoc);
-            $timeout(function() {
-              _addEmptyRecord();
-            })
-
-        })
-
+        documentBucket.save(currentDoc);
+        addEmptyNoteToBucket();
     }
 
     $scope.delete = function () {
@@ -72,6 +34,37 @@ mainApp.controller('appCtrl', function($scope,$timeout) {
 
     $scope.new = function () {
 
+    }
+
+
+    function initList() {
+        $scope.notesBucket =[]
+        documentBucket.getAllDocs().then(function (docs) {
+            $scope.notesBucket = docs;
+            if($scope.notesBucket.length == 0){
+                addEmptyNoteToBucket()
+                $scope.setNoteActive(0)
+            }
+        },function (err) {
+            console.log('Error getting all docs :',err);
+        })
+    }
+
+    function addEmptyNoteToBucket() {
+        let document      = {};
+        document.text     = ''
+        document._id      = uuidV4();
+        document.date     = moment().format('ll');
+        document.subject  = 'New Note'
+        $scope.notesBucket.push(document)
+    }
+
+    $scope.setNoteActive = function(index) {
+        $scope.activeNoteIndex = index;
+    }
+
+    $scope.trixInitialize = function(e, editor) {
+        $scope.editor = editor;
     }
 
     init();

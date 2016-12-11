@@ -13,7 +13,7 @@ input[type=datetime], input[type=datetime-local], input[type=tel], input[type=nu
 input[type=search], textarea.materialize-textarea{
   margin: 0 0 0 0;
   height: 2rem;
-  border-bottom: 0px; 
+  border-bottom: 0px;
 }
 
 .activityBtn{
@@ -40,11 +40,13 @@ input[type=search], textarea.materialize-textarea{
 
 .iconBox{
   cursor: hand;
+  height: 24px;
+  width:24px;
 }
 
 .iconContainer{
 
-  margin-top: 8px;
+  margin-top: 5px;
 }
 
 .iconContainer :hover {

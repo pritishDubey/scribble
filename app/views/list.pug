@@ -1,21 +1,28 @@
 div
   .row.searchBox
     .col.s8
-      .searchWrapper
-        input(type = 'text' placeholder = 'Search')
+      .searchWrapper.row
+        .col.s9
+          input(type = 'text' placeholder = 'Search')
+        .col.s3.iconContainer
+          center
+            img(src = '../fonts/search-engine.svg',style = "height:24px; width :24px;")
     .col.s4
       .row
         .col.s6.iconContainer
           center
-            i.fa.fa-floppy-o.fa-lg.iconBox(ng-click = 'save()')
+            img(src = '../fonts/Gnome-document-save.svg',style = "height:24px; width :24px;cursor:hand;",ng-click = 'save()',title = 'Save')
         .col.s6.iconContainer
           center
-            i.fa.fa-trash-o.fa-lg.iconBox(ng-click = 'delete()')
+            img(src = '../fonts/Gnome-edit-delete.svg',style = "height:24px; width :24px;cursor:hand;",ng-click = 'delete()',title = 'Delete')
   .row.listBoxWrapper
-    .listBox
-      .collection
-        a.collection-item(href='',ng-repeat = "document in documents | orderBy:'-'" )
-          span
-            b {{document.subject}}
-          br
+    .listBox.collection
+      .collection-item(href='',ng-repeat = "document in notesBucket | orderBy:'-'" )
+        .row
+          .col.s2
+            input#test2(name='group1', type='radio')
+            label(for='test2')
+          .col.s10
+            span {{document.subject}}
+        .row
           span {{document.date}}
